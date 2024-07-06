@@ -6,6 +6,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 import librosa
 import librosa.display
+from pydub import AudioSegment
+from pydub.playback import play
 
 def plot_audio_with_onsets(y, sr, onset_times):
     # Create a plot
@@ -24,7 +26,7 @@ def plot_audio_with_onsets(y, sr, onset_times):
 
 def play_audio_with_timestamps(audio_file, timestamps, text):
     # Initialize pygame mixer
-    pygame.mixer.init()
+    #pygame.mixer.init()
 
         # get continouous values 
     timel = [timestamps[k+1] - timestamps[k] for k in range(len(timestamps)-1)]
@@ -35,8 +37,11 @@ def play_audio_with_timestamps(audio_file, timestamps, text):
     count = 0
 
     # Start playing the audio
-    pygame.mixer.music.load(audio_file)
-    pygame.mixer.music.play()
+    #pygame.mixer.music.load(audio_file)
+    #pygame.mixer.music.play()
+
+    audio = AudioSegment.from_file(audio_file)
+    play(audio)
 
 
     for ts in timel:
