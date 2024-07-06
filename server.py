@@ -1,3 +1,4 @@
+import base64
 import tempfile
 import time
 import pygame
@@ -8,6 +9,8 @@ import librosa
 import librosa.display
 from pydub import AudioSegment
 from pydub.playback import play
+import streamlit.components.v1 as components
+
 
 def plot_audio_with_onsets(y, sr, onset_times):
     # Create a plot
@@ -26,7 +29,7 @@ def plot_audio_with_onsets(y, sr, onset_times):
 
 def play_audio_with_timestamps(audio_file, timestamps, text):
     # Initialize pygame mixer
-    #pygame.mixer.init()
+    pygame.mixer.init()
 
         # get continouous values 
     timel = [timestamps[k+1] - timestamps[k] for k in range(len(timestamps)-1)]
@@ -37,11 +40,25 @@ def play_audio_with_timestamps(audio_file, timestamps, text):
     count = 0
 
     # Start playing the audio
-    #pygame.mixer.music.load(audio_file)
-    #pygame.mixer.music.play()
+    pygame.mixer.music.load(audio_file)
+    pygame.mixer.music.play()
 
-    audio = AudioSegment.from_file(audio_file)
-    play(audio)
+    #audio = AudioSegment.from_file(audio_file)
+    #play(audio)
+    #audio_bytes = audio_file.read()
+    #audio_base64 = base64.b64encode(audio_bytes).decode()
+
+    # Generate HTML for the audio player with autoplay
+    #audio_html = f"""
+    #<audio autoplay>
+    #    <source src="data:audio/ogg;base64,{audio_base64}" type="audio/ogg">
+    #    <source src="data:audio/mpeg;base64,{audio_base64}" type="audio/mpeg">
+    #    Your browser does not support the audio element.
+    #</audio>
+    #"""
+
+    # Embed the HTML in the Streamlit app
+    #components.html(audio_html, height=0)
 
 
     for ts in timel:
