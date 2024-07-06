@@ -9,6 +9,7 @@ def play_audio_with_timestamps(audio_file, timestamps):
     pygame.mixer.music.load(audio_file)
     pygame.mixer.music.play()
 
+    # get continouous values 
     timel = [timestamps[k+1] - timestamps[k] for k in range(len(timestamps)-1)]
     timel = [int(float(ts) * 1000) for ts in timel]
 
